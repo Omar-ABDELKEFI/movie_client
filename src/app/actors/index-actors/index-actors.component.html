@@ -1,0 +1,53 @@
+<!-- Title for the actors page -->
+<h2>Actors</h2>
+
+<!-- Button to navigate to the create new actor page -->
+<button mat-flat-button color="primary" routerLink="/actors/create">Create new</button>
+
+<!-- Generic list component to display actors with a table and pagination -->
+<app-generic-list [list]="actors">
+  <ng-container content>
+    <!-- Table to display actor information -->
+    <table mat-table [dataSource]="actors" class="mat-elevation-z8 table-index">
+
+      <!-- Column for actor name -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{element.name}}</td>
+      </ng-container>
+
+      <!-- Column for actions (Edit and Delete) -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <!-- Link to navigate to the edit actor page -->
+          <a routerLink="/actors/edit/{{element.id}}" mat-flat-button color="primary">Edit</a>
+
+          <!-- Button to trigger the delete confirmation using SweetAlert -->
+          <button mat-flat-button color="warn"
+                  [swal]="{
+                            title: 'Confirmation',
+                            text: 'Are you sure that you want to delete the record?',
+                            showCancelButton: true
+                        }"
+                  (confirm)="delete(element.id)">
+            Delete
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Header row definition -->
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+
+      <!-- Row definition for displaying actor details -->
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+    </table>
+
+    <!-- Paginator for handling pagination -->
+    <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons
+                   [length]="totalAmountOfRecords" [pageSize]="pageSize" (page)="updatePagination($event)"
+                   class="mat-elevation-z8">
+    </mat-paginator>
+
+  </ng-container>
+</app-generic-list>

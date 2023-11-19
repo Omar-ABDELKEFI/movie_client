@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'moviesSite'`, () => {
+  it(`should have as title 'angular-movies'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('moviesSite');
+    expect(app.title).toEqual('any value');
   });
 
-  it('should render title', () => {
+  it('should render paragraph', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('moviesSite app is running!');
+    expect(compiled.querySelector('p').textContent).toContain('Hello World');
   });
 });
